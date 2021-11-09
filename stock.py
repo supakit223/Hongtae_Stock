@@ -19,7 +19,18 @@ br.form.controls[1]._value = 'stock1'
 br.submit()
 # print(br.response().read().decode(encoding='utf-8'))
 
-cookies = {'PHPSESSID': 'eie01uin9d6e55ai6nfrkj5j92'}
-payload = {'prefix': 'filter', 'goto_page': 24, 'per_page': 50, 'javascript_function': 'pagechange', 'filter_status': '-', 'filter_current_page': 1}
-r = requests.post('http://www.pawnshop-assistant.com/ajaxfunctions/getInventoryList', cookies=cookies, data=payload)
-print(r.text.encode('iso-8859-1').decode('utf-8'))
+cookies = {'PHPSESSID': 'narv5siuvgfrojeck8r5lq5kk5'}
+payload = {'prefix': 'filter', 'goto_page': 1, 'per_page': 50, 'javascript_function': 'pagechange', 'filter_status': '-', 'filter_current_page': 1}
+data = requests.post('http://www.pawnshop-assistant.com/ajaxfunctions/getInventoryList', cookies=cookies, data=payload)
+# print(data.text.encode('iso-8859-1').decode('utf-8'))
+
+data.encoding = 'utf-8'
+soup =  BeautifulSoup(data.text, 'html.parser')
+findName = soup.find_all('td',{'class':''})
+findDetail = soup.find_all('td',{'class':'c'})
+
+for i in findName:
+    print(i.text)
+
+for i in findDetail:
+    print(i.text)
